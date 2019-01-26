@@ -34,11 +34,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // 0: Base Layer
     [BASE] = LAYOUT_all(
-        KC_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC, KC_GRV,
+        KC_GRAVE, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC, KC_GRV,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
-        KC_LCTRL, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_NO, KC_ENT,
-        KC_LSFT, KC_NO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT, KC_UP, MO(_FL),
-        KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_RALT, KC_RCTRL, KC_LEFT, KC_DOWN, KC_RIGHT),
+        CTL_T(KC_ESC), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_NO, LT(_FL,KC_ENT),
+        KC_LSFT, KC_NO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, MT(MOD_RSFT,KC_SLSH), KC_RSFT, KC_UP, MO(_FL),
+        KC_LCTL, KC_LGUI, KC_LALT, LT(_FL,KC_SPC), KC_RALT, KC_RCTRL, KC_LEFT, KC_DOWN, KC_RIGHT),
 
     // 1: OSX Layer
     [OSX] = LAYOUT_all(
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // 1: Function Layer
     [_FL] = LAYOUT_all(
-        KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, KC_DEL,
+        KC_ESC, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, KC_DEL,
         _______, RGB_MOD, RGB_VAI, RGB_HUI, RGB_SAI, _______, KC_MUTE, KC_VOLU, KC_VOLD, _______, _______, BL_DEC, BL_INC, BL_STEP,
         _______, RGB_TOG, RGB_VAD, RGB_HUD, RGB_SAD, _______, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, _______, _______, KC_NO, KC_ENT,
         _______, KC_NO, _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, KC_PGUP, MO(_FL),
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // 2: Control Layer
     [_CL] = LAYOUT_all(
-        KC_TILD, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         LAY_LIN, LAY_OSX, _______, _______, RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         LAY_LIN, LAY_OSX, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NO, KC_ENT,
         _______, KC_NO, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP, MO(_FL),
@@ -129,7 +129,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 #endif
     return false;
     break;
-  case RGB_MOD: 
+  case RGB_MOD:
     // allows to set the rgb mode while in the FL layer which uses
     // its own mode
     if (record->event.pressed)
