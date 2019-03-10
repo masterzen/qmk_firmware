@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     // 2: Control Layer
     [_CL] = LAYOUT_all(
-        KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DEBUG,
         LAY_LIN, LAY_OSX, _______, _______, RESET, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         LAY_LIN, LAY_OSX, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NO, KC_ENT,
         _______, KC_NO, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGUP, MO(_FL),
@@ -86,7 +86,9 @@ void persistent_default_layer_set(uint16_t default_layer)
   default_layer_set(default_layer);
 }
 
+#ifdef RGBLIGHT_ENABLE
 extern rgblight_config_t rgblight_config;
+#endif
 
 bool edit = false;
 uint32_t mode;
@@ -96,7 +98,9 @@ uint8_t val;
 
 void matrix_init_user(void)
 {
+  #ifdef RGBLIGHT_ENABLE
   mode = rgblight_config.mode;
+  #endif
   #ifdef UNICODE_ENABLE
   set_unicode_input_mode(UC_LNX);
   #endif
@@ -134,9 +138,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     // its own mode
     if (record->event.pressed)
     {
+#ifdef RGBLIGHT_ENABLE
       rgblight_mode(mode);
       rgblight_step();
       mode = rgblight_config.mode;
+#endif
     }
     return false;
     break;
@@ -146,6 +152,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
 uint32_t layer_state_set_user(uint32_t state)
 {
+#ifdef RGBLIGHT_ENABLE
   if (state == BASE && edit == true)
   {
     hue = rgblight_get_hue();
@@ -171,6 +178,7 @@ uint32_t layer_state_set_user(uint32_t state)
     rgblight_sethsv(hue, sat, val);
     break;
   }
+#endif
   return state;
 }
 
