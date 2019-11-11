@@ -89,6 +89,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case BL_TOGG: {
+            if (record->event.pressed) {
+                if (!is_backlight_enabled()) {
+                    writePinLow(B6);
+                } else {
+                    writePinHigh(B6);
+                }
+                return false;
+            }
+            break;
+        }
         case RGB_MOD:
             // allows to set the rgb mode while in the ADJUST layer which uses
             // its own mode
@@ -137,4 +148,12 @@ uint32_t layer_state_set_user(uint32_t state) {
             break;
     }
     return state;
+}
+
+void led_set_user(uint8_t usb_led) {
+    if (is_backlight_enabled()) {
+        writePinLow(B6);
+    } else {
+        writePinHigh(B6);
+    }
 }
