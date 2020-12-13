@@ -1,4 +1,4 @@
-/* Copyright 2019 Brice Figureau
+/* Copyright 2020 masterzen
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,18 +15,3 @@
  */
 
 #include "aek67.h"
-
-void matrix_init_kb(void) {
-    // put your keyboard start-up code here
-    // runs once when the firmware starts up
-
-    matrix_init_user();
-    led_init_ports();
-}
-
-void led_init_ports(void) {
-}
-
-bool led_update_kb(led_t led_state) {
-    return true;
-}
